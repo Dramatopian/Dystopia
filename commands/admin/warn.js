@@ -18,8 +18,6 @@ module.exports = {
 	async execute(interaction) {
 		const target = interaction.options.getUser('target');
 		const reason = interaction.options.getString('reason') || 'No reason provided';
-
-		// Add warning to the map
 		if (!warnings.has(target.id)) {
 			warnings.set(target.id, []);
 		}

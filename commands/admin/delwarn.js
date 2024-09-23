@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const warnings = new Map(); // Same warnings map as in the /warn command
+const warnings = new Map();
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -18,21 +18,14 @@ module.exports = {
 	async execute(interaction) {
 		const target = interaction.options.getUser('target');
 		const warnId = interaction.options.getInteger('warnid');
-
-		// Check if the user has warnings
 		if (!warnings.has(target.id)) {
 			return interaction.reply({ content: `${target.tag} has no warnings.`, ephemeral: true });
 		}
-
 		const userWarnings = warnings.get(target.id);
 		const warningIndex = userWarnings.findIndex(w => w.id === warnId);
-
-		// If the warning ID is not found
 		if (warningIndex === -1) {
 			return interaction.reply({ content: `Warning ID ${warnId} not found for ${target.tag}.`, ephemeral: true });
 		}
-
-		// Remove the warning
 		userWarnings.splice(warningIndex, 1);
 		await interaction.reply({ content: `Warning ID ${warnId} for ${target.tag} has been deleted.` });
 	},
