@@ -2,8 +2,22 @@
 Dystopia is an experimental discord bot that is currently being developed.
 
 ## Current Commands
+`[] - required argument`<br />
+`() - optional argument`<br />
+
+### Admin
+`/unban [ID]`<br />
+
+### Utility
 `/serverinfo`<br />
 `/about`<br />
+
+### Messages
+`/clear [number]`<br />
+
+### Roles
+`/addrol [user] [roles]`<br />
+`/delrole [user] [roles]`<br />
 
 ## Experimental Commands
 
@@ -16,15 +30,6 @@ Dystopia is an experimental discord bot that is currently being developed.
 `/kick`<br />
 `/ban`<br />
 `/softban`<br />
-`/unban`<br />
-
-### Roles
-`/addrole`<br />
-`/delrole`<br />
-`/rolename`<br />
-
-### Messages
-`/clear`<br />
 
 ### Utility
 `/help`<br />
