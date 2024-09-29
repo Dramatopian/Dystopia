@@ -18,6 +18,7 @@ Dystopia is an experimental discord bot that is currently being developed.
 ### Roles
 `/addrol [user] [roles]`<br />
 `/delrole [user] [roles]`<br />
+/mute [user] (reason)<br /> /deafen [user] (reason)<br />
 
 ## Experimental Commands
 
