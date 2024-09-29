@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('addrole')
-		.setDescription('Add multiple roles to a user.')
+		.setDescription('Add role(s) to a user.')
 		.addUserOption(option => 
 			option.setName('target')
 				.setDescription('The user to assign the roles to')

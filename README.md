@@ -7,6 +7,10 @@ Dystopia is an experimental discord bot that is currently being developed.
 
 ### Admin
 `/unban [ID]`<br />
+`/timeout [user] (duration) (reason)`<br />
+`/kick [user] (reason)`<br />
+`/ban [user] (reason)`<br />
+`/softban [user] (reason)`<br />
 
 ### Utility
 `/serverinfo`<br />
@@ -16,21 +20,17 @@ Dystopia is an experimental discord bot that is currently being developed.
 `/clear [number]`<br />
 
 ### Roles
-`/addrol [user] [roles]`<br />
+`/addrole [user] [roles]`<br />
 `/delrole [user] [roles]`<br />
 /mute [user] (reason)<br /> /deafen [user] (reason)<br />
 
-## Experimental Commands
+## VC
+`/mute [user] (reason)`<br />
+`/deafen [user] (reason)`<br />
 
-### Admin
-`/warn`<br />
-`/delwarn`<br />
-`/mute`<br />
-`/deafen`<br />
-`/timeout`<br />
-`/kick`<br />
-`/ban`<br />
-`/softban`<br />
+<hr>
+
+## Experimental Commands
 
 ### Utility
 `/help`<br />

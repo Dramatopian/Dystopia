@@ -1,18 +1,22 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('serverinfo')
-		.setDescription('Provides information about the server.'),
-		async execute(interaction) {
-			const timestamp = Math.floor(interaction.createdTimestamp / 1000);
-			
-			await interaction.reply(
-				`Server Name: ${interaction.guild.name}\n` +
-				`Member Count: ${interaction.guild.memberCount}\n` +
-				`Owner: <@${interaction.guild.ownerId}>\n` + 
-				`Requested By: <@${interaction.user}\n` +
-				`Last Updated: <t:${timestamp}:F>`
-			);
-		},
+		.setDescription('Displays information about the server.'),
+	async execute(interaction) {
+		const timestamp = Math.floor(interaction.createdTimestamp / 1000);
+
+		const embed = new EmbedBuilder()
+			.setTitle(`${interaction.guild.name} Information`)
+			.addFields(
+				{ name: 'Server Name', value: interaction.guild.name, inline: true },
+				{ name: 'Member Count', value: interaction.guild.memberCount.toString(), inline: true },
+				{ name: 'Owner', value: `<@${interaction.guild.ownerId}>`, inline: true },
+				{ name: 'Last Updated', value: `<t:${timestamp}:F>`, inline: false }
+			)
+			.setColor('Blue');
+
+		await interaction.reply({ embeds: [embed] });
+	},
 };

@@ -11,8 +11,8 @@ module.exports = {
 			.addFields(
 				{ name: 'Bot Name', value: interaction.client.user.username },
 				{ name: 'Bot Owner', value: '<@620229764996923402>' },
-				{ name: 'No. of Servers', value: interaction.client.guilds.cache.size },
-				{ name: 'Uptime', value: interaction.client.uptime },
+				{ name: 'No. of Servers', value: interaction.client.guilds.cache.size.toString() }, // Convert to string
+				{ name: 'Uptime', value: interaction.client.uptime.toString() }, // Convert to string
 				{ name: 'Last Updated', value: `<t:${timestamp}:F>` }
 			)
 			.setColor('Grey');
