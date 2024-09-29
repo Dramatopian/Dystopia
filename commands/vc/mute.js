@@ -16,7 +16,7 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const target = interaction.options.getMember('target');
-		const reason = interaction.options.getString('reason') || 'No reason provided';
+		const reason = interaction.options.getString('reason');
 
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
 			return interaction.reply({ content: "You don't have permission to mute members.", ephemeral: true });
@@ -27,6 +27,11 @@ module.exports = {
 		}
 
 		await target.voice.setMute(true);
-		await interaction.reply({ content: `<@${target.user.id}> has been muted for the reason: ${reason}.` });
+
+		if (reason) {
+			await interaction.reply({ content: `<@${target.user.id}> has been muted for the reason: ${reason}.` });
+		} else {
+			await interaction.reply({ content: `<@${target.user.id}> has been muted.` });
+		}
 	},
 };
