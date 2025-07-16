@@ -1,40 +1,32 @@
-const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const fs = require('fs');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const path = require('path');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('Displays information for each command'),
-    
-    async execute(interaction) {
+	data: new SlashCommandBuilder()
+		.setName('help')
+		.setDescription('List all available commands by category'),
 
-        const commandFolders = fs.readdirSync(path.join(__dirname, '..'));
-        const buttons = [];
-        for (const folder of commandFolders) {
-            const commandsPath = path.join(__dirname, `../${folder}`);
-            const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	async execute(interaction) {
+		const categories = {};
 
-            for (const file of commandFiles) {
-                const command = require(path.join(commandsPath, file));
-                if ('data' in command) {
-                    buttons.push(new ButtonBuilder()
-                        .setCustomId(command.data.name)
-                        .setLabel(`/${command.data.name}`)
-                        .setStyle(ButtonStyle.Primary)
-                    );
-                }
-            }
-        }
-        const rows = [];
-        for (let i = 0; i < buttons.length; i += 5) {
-            const row = new ActionRowBuilder().addComponents(buttons.slice(i, i + 5));
-            rows.push(row);
-        }
+		for (const [name, command] of interaction.client.commands) {
+			const folder = path.basename(path.dirname(require.resolve(`./${command.data.name}.js`)));
+			if (!categories[folder]) {
+				categories[folder] = [];
+			}
+			categories[folder].push(`</${command.data.name}:${command.data.name}> - ${command.data.description}`);
+		}
 
-        await interaction.reply({
-            content: 'Here are the available commands:',
-            components: rows,
-        });
-    },
+		const embed = new EmbedBuilder()
+			.setTitle('🛠 Help Menu')
+			.setDescription('Here are all available commands grouped by category:')
+			.setColor(0x00AE86);
+
+		for (const [category, commands] of Object.entries(categories)) {
+			const capitalized = category.charAt(0).toUpperCase() + category.slice(1);
+			embed.addFields({ name: `📁 ${capitalized}`, value: commands.join('\n') });
+		}
+
+		await interaction.reply({ embeds: [embed], ephemeral: true });
+	}
 };

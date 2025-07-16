@@ -1,17 +1,20 @@
+require('dotenv').config();
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+const fs = require('node:fs');
+const path = require('node:path');
+
+const token = process.env.DISCORD_TOKEN;
+
+if (!token) {
+	console.error("DISCORD_TOKEN is missing from the .env file");
+	process.exit(1);
+}
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-
 client.once(Events.ClientReady, readyClient => {
-	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+	console.log(`✅ Ready! Logged in as ${readyClient.user.tag}`);
 });
-
-client.login(token);
-
-const fs = require('node:fs');
-const path = require('node:path');
 
 client.commands = new Collection();
 
@@ -53,3 +56,5 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 	}
 });
+
+client.login(token);
