@@ -2,8 +2,10 @@ require('dotenv').config();
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-
 const token = process.env.DISCORD_TOKEN;
+const clientId = process.env.CLIENT_ID;
+const guildId = process.env.GUILD_ID;
+const ownerId = process.env.OWNER_ID;
 
 if (!token) {
 	console.error("DISCORD_TOKEN is missing from the .env file");
@@ -13,7 +15,7 @@ if (!token) {
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, readyClient => {
-	console.log(`✅ Ready! Logged in as ${readyClient.user.tag}`);
+	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
 client.commands = new Collection();
